@@ -55,8 +55,8 @@ function installTitlebar() {
     document.body.parentNode.setAttribute('electron-titlebar-platform', platform);
 
     const w = require('electron').remote.getCurrentWindow();
-    if (!w.isResizable() || !w.isMaximizable()) titlebar.classList.add('no-maximize');
-    if (!w.isMinimizable()) titlebar.classList.add('no-minimize');
+    if (!w.resizable || !w.maximizable) titlebar.classList.add('no-maximize');
+    if (!w.minimizable) titlebar.classList.add('no-minimize');
 
     const path = require('path'),
           url = require('url');
@@ -146,5 +146,4 @@ function installTitlebar() {
     document.head.appendChild(link);
 };
 
-if (document.readyState === 'complete' || document.readyState === 'interactive') installTitlebar();
-else document.addEventListener('DOMContentLoaded', installTitlebar);
+document.addEventListener('DOMContentLoaded', installTitlebar);
